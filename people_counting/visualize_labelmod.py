@@ -6,6 +6,8 @@ Copyright (c) 2017 Matterport, Inc.
 Licensed under the MIT License (see LICENSE for details)
 Written by Waleed Abdulla
 """
+import matplotlib
+matplotlib.use('Agg')
 
 import random
 import itertools

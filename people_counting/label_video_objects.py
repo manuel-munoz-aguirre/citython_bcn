@@ -16,7 +16,7 @@ from ast import literal_eval as make_tuple
 import imageio
 import visualize_labelmod
 from contextlib import closing
-from videosequence import VideoSequence
+#from videosequence import VideoSequence
 
 
 # In[ ]:
