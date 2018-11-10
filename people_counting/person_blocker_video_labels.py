@@ -78,10 +78,7 @@ def person_blocker(args):
     vlen = len(reader)
     
     for i, image in enumerate(reader):
-    
-        if i < 961:
-            continue
-
+ 
         # Output frame number
         print(str(i)+"/"+str(vlen))
         
@@ -92,7 +89,7 @@ def person_blocker(args):
         if args.labeled:
             position_ids = [''.format(x)
                             for x in range(r['class_ids'].shape[0])]
-            outstr = "output/labeled{:06d}.png".format(i)
+            outstr = "output/test/labeled{:06d}.png".format(i)
             visualize_labelmod.display_instances(image, 
                                                  r['rois'],
                                                  r['masks'], 
