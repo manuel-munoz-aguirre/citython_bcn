@@ -143,6 +143,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             p = Polygon(verts, facecolor="none", edgecolor=color)
             ax.add_patch(p)
 
+    # We hard code this to count for the class corresponding to persons only
     ax.imshow(masked_image.astype(np.uint8))
     #plt.show()
     plt.savefig('person_blocked_labels.png', bbox_inches='tight')

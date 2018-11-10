@@ -17,7 +17,9 @@ import imageio
 import visualize
 from contextlib import closing
 from videosequence import VideoSequence
-
+from PIL import Image
+from PIL import ImageFont
+from PIL import ImageDraw 
 
 # In[ ]:
 
@@ -58,6 +60,10 @@ def string_to_rgb_triplet(triplet):
 
 def person_blocker(args):
     
+    # If the output path does not exist, create it
+    if not os.path.exists(args.write_output):
+        os.makedirs(args.write_output)
+    
     # Required to load model, but otherwise unused
     ROOT_DIR = os.getcwd()
     COCO_MODEL_PATH = args.model or os.path.join(ROOT_DIR, "mask_rcnn_coco.h5")
@@ -86,13 +92,13 @@ def person_blocker(args):
         results = model.detect([image], verbose=0)
         r = results[0]
 
-        if args.labeled:
-            position_ids = ['[{}]'.format(x)
-                            for x in range(r['class_ids'].shape[0])]
-            visualize.display_instances(image, r['rois'],
-                                        r['masks'], r['class_ids'],
-                                        get_class_names(), position_ids)
-            sys.exit()
+#         if args.labeled:
+#             position_ids = ['[{}]'.format(x)
+#                             for x in range(r['class_ids'].shape[0])]
+#             visualize.display_instances(image, r['rois'],
+#                                         r['masks'], r['class_ids'],
+#                                         get_class_names(), position_ids)
+#             sys.exit()
 
         # Filter masks to only the selected objects
         objects = np.array(args.objects)
@@ -115,14 +121,30 @@ def person_blocker(args):
         noisy_color = create_noisy_color(image, mask_color)
         image_masked[mask_selected > 0] = noisy_color[mask_selected > 0]
 
+        # Write number of detected objects
+        n_persons = sum(r['class_ids'] == 1)
+        img = Image.fromarray(image_masked.astype(np.uint8), 'RGB')
+        draw = ImageDraw.Draw(img)
+        font = ImageFont.truetype("arial.ttf", 60)
+        draw.text((0, 0), "N="+str(n_persons), fill=(255,0,0), font = font)
+
+#         plt.imshow(image_masked.astype(np.uint8))
+#         plt.text(0, 0, "N = " + str(n_persons), fontsize=20, color = "red")
+        
         # Save masked frame
-        imageio.imwrite("output/frame{:06d}.jpg".format(i), image_masked)
+        #plt.show()
+        outstr = (args.write_output + "/frame{:06d}.jpg").format(i)
+        img.save(outstr)
+        #imageio.imwrite(outstr, draw)
+        #plt.close()
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Person Blocker - Automatically "block" people '
-                    'in video using a neural network.')
+        description='Script to block objects '
+                    'in video using a neural network. This script will generate '
+                    'the individual frames of the video that need to be stitched '
+                    'manually using ffmpeg for example.')
     parser.add_argument('-i', '--image',  help='Video file name.',
                         required=False)
     parser.add_argument(
@@ -144,6 +166,7 @@ if __name__ == '__main__':
                         '--names', dest='names',
                         action='store_true',
                         help='prints class names and exits.')
+    parser.add_argument('-w', '--write_output', help='Output path for individual frames', default = None)
     parser.set_defaults(labeled=False, names=False)
     args = parser.parse_args()
 

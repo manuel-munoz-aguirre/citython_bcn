@@ -94,7 +94,6 @@ def person_blocker(args):
                         for x in range(r['class_ids'].shape[0])]
 
         outstr = (args.write_output + "/labeled{:06d}.png").format(i)
-        #outstr = "output/test/labeled{:06d}.png".format(i)
         visualize_labelmod.display_instances(image, 
                                              r['rois'],
                                              r['masks'], 
@@ -104,34 +103,9 @@ def person_blocker(args):
                                              selected_class = args.selected_class, 
                                              outname = outstr)
 
-#         # Filter masks to only the selected objects
-#         objects = np.array(args.objects)
-
-#         # Object IDs:
-#         if np.all(np.chararray.isnumeric(objects)):
-#             object_indices = objects.astype(int)
-#         # Types of objects:
-#         else:
-#             selected_class_ids = np.flatnonzero(np.in1d(get_class_names(),
-#                                                         objects))
-#             object_indices = np.flatnonzero(
-#                 np.in1d(r['class_ids'], selected_class_ids))
-
-#         mask_selected = np.sum(r['masks'][:, :, object_indices], axis=2)
-
-#         # Replace object masks with noise
-#         mask_color = string_to_rgb_triplet(args.color)
-#         image_masked = image.copy()
-#         noisy_color = create_noisy_color(image, mask_color)
-#         image_masked[mask_selected > 0] = noisy_color[mask_selected > 0]
-
-#         # Save masked frame
-#         imageio.imwrite("output/test/masked{:06d}.jpg".format(i), image_masked)
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Person Blocker - Automatically "block" people '
+        description='Script to label objects '
                     'in video using a neural network. This script will generate '
                     'the individual frames of the video that need to be stitched '
                     'manually using ffmpeg for example.')
