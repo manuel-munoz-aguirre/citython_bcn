@@ -86,6 +86,8 @@ def person_blocker(args):
         results = model.detect([image], verbose=0)
         r = results[0]
 
+        # If we request only the object labelling
+        # and not 
         if args.labeled:
             position_ids = [''.format(x)
                             for x in range(r['class_ids'].shape[0])]
@@ -122,7 +124,7 @@ def person_blocker(args):
         image_masked[mask_selected > 0] = noisy_color[mask_selected > 0]
 
         # Save masked frame
-        imageio.imwrite("output/frame{:06d}.jpg".format(i), image_masked)
+        imageio.imwrite("output/test/masked{:06d}.jpg".format(i), image_masked)
 
 
 if __name__ == '__main__':

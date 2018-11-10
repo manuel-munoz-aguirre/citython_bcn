@@ -109,6 +109,8 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         color = colors[0]
 
         # Check if its selected class, if not then skip instance
+        print(class_names)
+        print(selected_class)
         selected_class_id = np.where(class_names == selected_class)[0][0]
         
         if not class_ids[i] == selected_class_id:
@@ -150,8 +152,10 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             ax.add_patch(p)
 
     ax.imshow(masked_image.astype(np.uint8))
-    #plt.show()
+    n_persons = sum(class_ids == 1)
+    plt.text(0, 0, "N = " + str(n_persons), fontsize=20, color = "red")
     plt.savefig(outname, bbox_inches='tight')
+    plt.close()
     
 
 def draw_rois(image, rois, refined_rois, mask, class_ids, class_names, limit=10):
