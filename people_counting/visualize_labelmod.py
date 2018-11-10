@@ -109,8 +109,6 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         color = colors[0]
 
         # Check if its selected class, if not then skip instance
-        print(class_names)
-        print(selected_class)
         selected_class_id = np.where(class_names == selected_class)[0][0]
         
         if not class_ids[i] == selected_class_id:

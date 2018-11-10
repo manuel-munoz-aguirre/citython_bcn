@@ -58,6 +58,10 @@ def string_to_rgb_triplet(triplet):
 
 def person_blocker(args):
     
+    # If the output path does not exist, create it
+    if not os.path.exists(args.write_output):
+        os.makedirs(args.write_output)
+    
     # Required to load model, but otherwise unused
     ROOT_DIR = os.getcwd()
     COCO_MODEL_PATH = args.model or os.path.join(ROOT_DIR, "mask_rcnn_coco.h5")
@@ -86,74 +90,65 @@ def person_blocker(args):
         results = model.detect([image], verbose=0)
         r = results[0]
 
-        # If we request only the object labelling
-        # and not 
-        if args.labeled:
-            position_ids = [''.format(x)
-                            for x in range(r['class_ids'].shape[0])]
-            outstr = "output/test/labeled{:06d}.png".format(i)
-            visualize_labelmod.display_instances(image, 
-                                                 r['rois'],
-                                                 r['masks'], 
-                                                 r['class_ids'],
-                                                 get_class_names(), 
-                                                 scores = r['scores'],
-                                                 selected_class = args.selected_class, 
-                                                 outname = outstr)
-            continue
+        position_ids = [''.format(x)
+                        for x in range(r['class_ids'].shape[0])]
 
-        # Filter masks to only the selected objects
-        objects = np.array(args.objects)
+        outstr = (args.write_output + "/labeled{:06d}.png").format(i)
+        #outstr = "output/test/labeled{:06d}.png".format(i)
+        visualize_labelmod.display_instances(image, 
+                                             r['rois'],
+                                             r['masks'], 
+                                             r['class_ids'],
+                                             get_class_names(), 
+                                             scores = r['scores'],
+                                             selected_class = args.selected_class, 
+                                             outname = outstr)
 
-        # Object IDs:
-        if np.all(np.chararray.isnumeric(objects)):
-            object_indices = objects.astype(int)
-        # Types of objects:
-        else:
-            selected_class_ids = np.flatnonzero(np.in1d(get_class_names(),
-                                                        objects))
-            object_indices = np.flatnonzero(
-                np.in1d(r['class_ids'], selected_class_ids))
+#         # Filter masks to only the selected objects
+#         objects = np.array(args.objects)
 
-        mask_selected = np.sum(r['masks'][:, :, object_indices], axis=2)
+#         # Object IDs:
+#         if np.all(np.chararray.isnumeric(objects)):
+#             object_indices = objects.astype(int)
+#         # Types of objects:
+#         else:
+#             selected_class_ids = np.flatnonzero(np.in1d(get_class_names(),
+#                                                         objects))
+#             object_indices = np.flatnonzero(
+#                 np.in1d(r['class_ids'], selected_class_ids))
 
-        # Replace object masks with noise
-        mask_color = string_to_rgb_triplet(args.color)
-        image_masked = image.copy()
-        noisy_color = create_noisy_color(image, mask_color)
-        image_masked[mask_selected > 0] = noisy_color[mask_selected > 0]
+#         mask_selected = np.sum(r['masks'][:, :, object_indices], axis=2)
 
-        # Save masked frame
-        imageio.imwrite("output/test/masked{:06d}.jpg".format(i), image_masked)
+#         # Replace object masks with noise
+#         mask_color = string_to_rgb_triplet(args.color)
+#         image_masked = image.copy()
+#         noisy_color = create_noisy_color(image, mask_color)
+#         image_masked[mask_selected > 0] = noisy_color[mask_selected > 0]
+
+#         # Save masked frame
+#         imageio.imwrite("output/test/masked{:06d}.jpg".format(i), image_masked)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Person Blocker - Automatically "block" people '
-                    'in video using a neural network.')
+                    'in video using a neural network. This script will generate '
+                    'the individual frames of the video that need to be stitched '
+                    'manually using ffmpeg for example.')
     parser.add_argument('-i', '--image',  help='Video file name.',
                         required=False)
     parser.add_argument(
         '-m', '--model',  help='path to COCO model', default=None)
-    parser.add_argument('-o',
-                        '--objects', nargs='+',
-                        help='object(s)/object ID(s) to block. ' +
-                        'Use the -names flag to print a list of ' +
-                        'valid objects',
-                        default='person')
     parser.add_argument('-c',
                         '--color', nargs='?', default='(255, 255, 255)',
                         help='color of the "block"')
-    parser.add_argument('-l',
-                        '--labeled', dest='labeled',
-                        action='store_true',
-                        help='generate labeled image instead')
     parser.add_argument('-n',
                         '--names', dest='names',
                         action='store_true',
                         help='prints class names and exits.')
     parser.add_argument('-s', '--selected_class', help="If labels selected, which class to display",
                        required = False)
+    parser.add_argument('-w', '--write_output', help='Output path for individual frames', default = None)
     parser.set_defaults(labeled=False, names=False, selected_class = None)
     args = parser.parse_args()
 
