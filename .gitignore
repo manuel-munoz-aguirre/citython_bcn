@@ -1,0 +1,3 @@
+people_counting/input
+people_counting/mask_rcnn_coco.h5
+people_counting/output
