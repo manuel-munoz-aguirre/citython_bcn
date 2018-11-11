@@ -1,5 +1,13 @@
 # Citython Barcelona
 
+## Team members:
+
+1. [Albert López]() (Architect)
+2. [Alejandro Cavazos]() (Engineering)
+3. [Manuel Muñoz](https://www.linkedin.com/in/manuelmunozaguirre/) (Data Scientist)
+4. [Marta Guardiola]() (Architect)
+5. [Raziel Amador](https://www.linkedin.com/in/raziel-amador-rios-14161268/) (Data Scientist)
+
 ## Content:
 
 1. [Project description](#description)
@@ -51,5 +59,3 @@ To stitch the frames with `ffmpeg` use the following command:
 ffmpeg -start_number 0000 -i frame00%4d.jpg -c:v libx264 outfile.mp4
 ```
 ## 3) <a id='mining'></a> Data mining: creating maps
-
-...
