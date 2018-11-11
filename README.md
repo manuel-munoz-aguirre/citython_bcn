@@ -31,23 +31,24 @@ Required libraries:
 The person labelling and person masking functionality is currently separated in **two scripts**. Both of the output the counts on the upper left corner of the image. To run the person labelling script:
 
 ```{r}
-
 python label_video_objects.py -i input/my_video.mp4  -c '(128, 128, 128)' -s "person" -w output/myvideo/
-
 ```
+
+![img1](img/labeled_sample.png)
+
+
 To run the person masking script:
 
 ```{r}
-
 python mask_video.py -i input/my_video.mp4 -c '(128, 128, 128)' -o "person" -w output/myvideo/
-
 ```
+![img2](img/masked_sample.jpg)
+
+
 To stitch the frames with `ffmpeg` use the following command:
 
 ```{r}
-
 ffmpeg -start_number 0000 -i frame00%4d.jpg -c:v libx264 outfile.mp4
-
 ```
 ## 3) <a id='mining'></a> Data mining: creating maps
 
