@@ -15,19 +15,15 @@
 3. [Data mining: creating maps](#mining)
 
 ## 1) <a id='description'></a> Project description
-Urban data is a key element to understand different behaviors. We realized that all the information about crowd flow in the city of Barcelona is approximate (i.e. obtained via Twitter or other means). For this reason we have developed an AI model to collect data about crowd flow with the purpose of generating knowledge for better decision making with regard to public spaces in Barcelona. We also think of this model as being generalizable to cities with similar characteristics around the world or that are prone to being gentrified. We reached the conclusion that the city of Barcelona has two main rhythms: 
+Urban data is a key element to understand different behaviors. We realized that all the information about crowd flow in the city of Barcelona is approximate (i.e. obtained via *Twitter* or other means). For this reason we have developed an **AI model** to collect data about crowd flow with the purpose of generating knowledge. We also think of this model as being **generalizable** to cities around the world that are prone to being gentrified. We reached the conclusion that the city of Barcelona has two main rhythms:
 
-* Barcelona of the citizens: determined by the permanent residents in an annual way, considering the seasons of a regular year, where most people have consistent daily activities with a common schedule, allowing for small variations for each individual. The origin of movement for this crowd is their own home, and some of the different destinations are schools, offices, working places, stores, among other common places. 
+* **Barcelona of the citizens:** determined by the permanent residents in an annual way, considering the seasons of a regular year. The origin of movement for this crowd is their own home, and some of the different destinations are schools, offices, working places, etc.
 
-* Barcelona of the tourists: a pattern that has larger variance with respect to the Barcelona of the citizens, but also follows a structure during certain months, year by year. This interaction is interesting because it is currently difficult for stakeholders to obtain clear information about the rhythm and flow of this group. The starting point of each individual or group of persons changes with the decisions they take with regards to their holidays: interests, schedules and activities that they choose each day. Therefore, this is a very dynamic flow that varies in a characteristic way through the seasons.
+* **Barcelona of the tourists:** a pattern that has larger variance with respect to the Barcelona of the citizens, but also follows a structure during certain months, year by year. This interaction is interesting because it is currently difficult for stakeholders to obtain clear information about the rhythm and flow of this group. The starting point of each individual or group of persons changes with the decisions they take with regards to their holidays.
 
-Following these lines, we have created tool prototype to analyse and understand the interaction between this two pulses of the city with more accuracy. In practical terms, our system allows to **to count the number of persons in a given spot** using public cameras, in a way that preserves the privacy. Taking advantage of the existing infrastructure in the city of Barcelona, the proposal would be to obtain data from videos that have been recorded from the streets where the cameras are located. 
+Following these lines, we have created tool prototype to analyse and understand the interaction between this two pulses of the city with more accuracy. In practical terms, our system allows to **to count the number of persons in a given spot** using public cameras that already exist as part of infrastructure of Barcelona, **in a way that preserves the privacy**.
 
-This model would also be able to identify **how crowds move in special events like festivals** like la Mercé, la Diada, Festa Major de Gràcia, among others, generating knowledge that is currently limited or unavailable. It would also be able to provide data to help us understand the different behaviors of people interacting on the street: this is, how they move through space and time.
-
-
-
-
+This model would also be able to identify **how crowds move in special events like festivals** like *la Mercé, Festa Major de Gràcia,* etc, generating knowledge that is currently limited or unavailable.
 
 ## 2) <a id='deep'></a> Deep Neural Network for behaviour identification
 
@@ -77,4 +73,4 @@ To make our hypothesis about the two Barcelonas (one belonging to the tourist pa
 - Inside Airbnb: listings and calendar information.
 - Opendata Barcelona: coordinates for transport services in Barcelona (metro, tram, train, etc.)
 
-We have manually cleaned this data using R and imported it into QGIS in order to generate visualizations for the two Barcelonas. The animations were stitched together using `ffmpeg`. 
+We have manually cleaned this data using R and imported it into QGIS in order to generate visualizations for the two Barcelonas. The animations were stitched together using `ffmpeg`.
