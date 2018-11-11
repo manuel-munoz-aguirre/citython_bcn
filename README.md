@@ -1,4 +1,4 @@
-# Citython Barcelona 2018: Behavior recognition system for decision making
+# Citython Barcelona 2018: Crowd recognition system for decision making
 
 ## Team members:
 
