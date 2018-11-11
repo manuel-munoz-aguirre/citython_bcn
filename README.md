@@ -74,3 +74,5 @@ To make our hypothesis about the two Barcelonas (one belonging to the tourist pa
 - Opendata Barcelona: coordinates for transport services in Barcelona (metro, tram, train, etc.)
 
 We have manually cleaned this data using R and imported it into QGIS in order to generate visualizations for the two Barcelonas. The animations were stitched together using `ffmpeg`.
+
+![img2](map/ciudadlocal.gif)
