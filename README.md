@@ -1,4 +1,4 @@
-# Citython Barcelona
+# Citython Barcelona 2018: Behavior recognition system for decision making
 
 ## Team members:
 
@@ -65,4 +65,4 @@ To make our hypothesis about the two Barcelonas (one belonging to the tourist pa
 - Inside Airbnb: listings and calendar information.
 - Opendata Barcelona: coordinates for transport services in Barcelona (metro, tram, train, etc.)
 
-We have manually cleaned this data and imported it into QGIS in order to generate visualizations for the two Barcelonas. The animations were stitched together using `ffmpeg`. 
+We have manually cleaned this data using R and imported it into QGIS in order to generate visualizations for the two Barcelonas. The animations were stitched together using `ffmpeg`. 
