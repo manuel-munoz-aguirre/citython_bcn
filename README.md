@@ -2,10 +2,10 @@
 
 ## Team members:
 
-1. [Albert López]() (Architect)
-2. [Alejandro Cavazos]() (Engineering)
+1. [Albert López](https://www.linkedin.com/in/albert-l%C3%B3pez-cuadrado-a45381173/) (Architect)
+2. [Alejandro Cavazos](https://www.linkedin.com/in/alejandro-cavazos-s-42aa8623/) (Engineering)
 3. [Manuel Muñoz](https://www.linkedin.com/in/manuelmunozaguirre/) (Data Scientist)
-4. [Marta Guardiola]() (Architect)
+4. [Marta Guardiola](mailto:martagube@gmail.com) (Architect)
 5. [Raziel Amador](https://www.linkedin.com/in/raziel-amador-rios-14161268/) (Data Scientist)
 
 ## Content:
@@ -59,3 +59,10 @@ To stitch the frames with `ffmpeg` use the following command:
 ffmpeg -start_number 0000 -i frame00%4d.jpg -c:v libx264 outfile.mp4
 ```
 ## 3) <a id='mining'></a> Data mining: creating maps
+
+To make our hypothesis about the two Barcelonas (one belonging to the tourist patterns, while the other belongs to the resident patterns), we have mined data from three different sources:
+- Yelp API: restaurants that were in a 5km radius from Plaça Catalunya, obtaining around 950 places (there are arounds 5600 places registered but due to API restrictions we could only get around 1k).
+- Inside Airbnb: listings and calendar information.
+- Opendata Barcelona: coordinates for transport services in Barcelona (metro, tram, train, etc.)
+
+We have manually cleaned this data and imported it into QGIS in order to generate visualizations for the two Barcelonas. The animations were stitched together using `ffmpeg`. 
